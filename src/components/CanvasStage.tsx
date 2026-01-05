@@ -35,7 +35,6 @@ type CanvasStageProps = {
   isPanning: boolean;
 };
 
-const productImageSrc = "/assets/product.svg";
 const patterns: Record<string, string> = {
   stripes: "/assets/pattern-stripes.svg",
   dots: "/assets/pattern-dots.svg",
@@ -84,7 +83,6 @@ const CanvasStage: React.FC<CanvasStageProps> = ({ stageRef, isPanning }) => {
   const [backgroundPanning, setBackgroundPanning] = useState(false);
   const [isExternalDrag, setIsExternalDrag] = useState(false);
 
-  const productImage = useImageLoader(productImageSrc);
   const patternImages = {
     stripes: useImageLoader(patterns.stripes),
     dots: useImageLoader(patterns.dots),
@@ -359,17 +357,6 @@ const CanvasStage: React.FC<CanvasStageProps> = ({ stageRef, isPanning }) => {
         onDrop={onDragLeave}
       >
         <Layer>
-          {productImage && (
-            <Image
-              image={productImage}
-              width={320}
-              height={360}
-              x={80}
-              y={40}
-              listening={false}
-              opacity={0.9}
-            />
-          )}
           {sortedObjects.map((obj) => renderObject(obj))}
           <Transformer
             ref={transformerRef}

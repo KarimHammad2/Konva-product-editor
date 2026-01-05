@@ -63,83 +63,8 @@ type EditorAction =
 const clamp = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);
 
-const getBoundsFromPoints = (points: number[]) => {
-  const xs: number[] = [];
-  const ys: number[] = [];
-  for (let i = 0; i < points.length; i += 2) {
-    xs.push(points[i]);
-    ys.push(points[i + 1]);
-  }
-  const minX = Math.min(...xs);
-  const maxX = Math.max(...xs);
-  const minY = Math.min(...ys);
-  const maxY = Math.max(...ys);
-  return { width: maxX - minX, height: maxY - minY, minX, minY };
-};
-
-const createRegion = (
-  id: string,
-  name: string,
-  points: number[],
-  fill: string,
-  zIndex: number,
-): EditorObject => {
-  const bounds = getBoundsFromPoints(points);
-  return {
-    id,
-    type: "region",
-    name,
-    points,
-    x: 0,
-    y: 0,
-    width: bounds.width,
-    height: bounds.height,
-    rotation: 0,
-    zIndex,
-    opacity: 0.95,
-    visible: true,
-    locked: false,
-    fill,
-    stroke: "#0f172a",
-    strokeWidth: 0.8,
-    scaleX: 1,
-    scaleY: 1,
-  };
-};
-
-const initialRegions: EditorObject[] = [
-  createRegion(
-    "region-top",
-    "Top Panel",
-    [120, 60, 220, 60, 250, 150, 90, 150],
-    "#fef2f2",
-    0,
-  ),
-  createRegion(
-    "region-bottom",
-    "Bottom Panel",
-    [110, 170, 240, 170, 230, 260, 120, 260],
-    "#e0f2fe",
-    1,
-  ),
-  createRegion(
-    "region-left-strap",
-    "Left Strap",
-    [110, 60, 130, 60, 110, 20, 90, 20],
-    "#ede9fe",
-    2,
-  ),
-  createRegion(
-    "region-right-strap",
-    "Right Strap",
-    [220, 60, 240, 60, 260, 20, 240, 20],
-    "#eef2ff",
-    3,
-  ),
-];
-
 const initialPresent: EditorPresent = {
-  objects: initialRegions,
+  objects: [],
   selectedId: null,
   zoom: 1,
   pan: { x: 0, y: 0 },
